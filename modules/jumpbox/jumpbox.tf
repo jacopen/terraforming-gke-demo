@@ -1,6 +1,6 @@
 resource "google_compute_firewall" "jumpbox" {
   name        = "${var.env_name}-jumpbox"
-  network     = "${var.network}"
+  network     = var.network
   target_tags = ["${var.env_name}-jumpbox"]
 
   allow {
@@ -15,8 +15,8 @@ resource "google_compute_firewall" "jumpbox" {
 
 resource "google_compute_instance" "jumpbox" {
   name         = "${var.env_name}-jumpbox"
-  machine_type = "${var.jumpbox_machine_type}"
-  zone         = "${var.zone}"
+  machine_type = var.jumpbox_machine_type
+  zone         = var.zone
   tags         = ["${var.env_name}-jumpbox"]
   allow_stopping_for_update = true
 
@@ -32,11 +32,11 @@ resource "google_compute_instance" "jumpbox" {
   }
 
   network_interface {
-    network = "${var.network}"
-    subnetwork = "${var.subnetwork}"
+    network = var.network
+    subnetwork = var.subnetwork
 
     access_config {
-      nat_ip = "${google_compute_address.jumpbox-ip.address}"
+      nat_ip = google_compute_address.jumpbox-ip.address
     }
   }
 
