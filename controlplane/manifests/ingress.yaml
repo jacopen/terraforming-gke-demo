@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: argocd-server
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: demo-cp-ingress-ip
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
   - host: argocd.cp.demo.udcp.info
