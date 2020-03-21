@@ -1,0 +1,15 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: argocd-server
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: demo-cp-ingress-ip
+spec:
+  rules:
+  - host: argocd.cp.demo.udcp.info
+    http:
+      paths:
+      - backend:
+          serviceName: argocd-server
+          servicePort: 80
