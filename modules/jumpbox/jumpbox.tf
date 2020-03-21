@@ -36,7 +36,7 @@ resource "google_compute_instance" "jumpbox" {
     subnetwork = var.subnetwork
 
     access_config {
-      nat_ip = google_compute_address.jumpbox-ip.address
+      nat_ip = google_compute_address.jumpbox_ip.address
     }
   }
 
@@ -45,14 +45,13 @@ resource "google_compute_instance" "jumpbox" {
     block-project-ssh-keys = "FALSE"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "ls -al",
-    ]
+  service_account {
+    email = var.service_account
+    scopes = ["cloud-platform", "compute-rw", "userinfo-email"]
   }
 }
 
-resource "google_compute_address" "jumpbox-ip" {
+resource "google_compute_address" "jumpbox_ip" {
   name = "${var.env_name}-jumpbox-ip"
 }
 
@@ -67,14 +66,18 @@ variable "zone" {}
 variable "jumpbox_machine_type" {
   default = "g1-small"
 }
-output "jumpbox-ip" {
-  value = "${google_compute_address.jumpbox-ip.address}"
+variable "service_account" {
+  
+}
+
+output "jumpbox_ip" {
+  value = google_compute_address.jumpbox_ip.address
 }
 
 output "private_key" {
-  value = "${tls_private_key.jumpbox.private_key_pem}"
+  value = tls_private_key.jumpbox.private_key_pem
 }
 
 output "public_key" {
-  value = "${tls_private_key.jumpbox.public_key_openssh}"
+  value = tls_private_key.jumpbox.public_key_openssh
 }
