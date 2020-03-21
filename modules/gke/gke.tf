@@ -9,12 +9,6 @@ resource "google_container_cluster" "cluster" {
   node_version       = var.node_version
   remove_default_node_pool = true
   initial_node_count       = 1
-#  lifecycle {
-#    ignore_changes = [
-#      "node_pool",
-#      "ip_allocation_policy",
-#    ]
-#  }
 }
 
 resource "google_container_node_pool" "node_pool" {
@@ -34,7 +28,7 @@ variable "location" {}
 
 variable "zone" {}
 variable "node_count"{
-  default = "3"
+  default = "1"
 }
 variable "machine_type" {
   default = "n1-standard-2"
