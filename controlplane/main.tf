@@ -34,6 +34,7 @@ module "jumpbox" {
   network    = var.network
   subnetwork = var.subnetwork
   zone       = var.zone
+  service_account = var.service_account
 }
 
 variable "project" {
@@ -62,3 +63,11 @@ variable "subnetwork" {
 variable "credentials" {
 }
 
+variable "root_domain" {
+}
+variable "service_account" {
+  
+}
+variable "github_token" {
+  
+}
