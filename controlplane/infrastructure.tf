@@ -1,4 +1,4 @@
-resource "google_compute_global_address" "cp_ingress_ip" {
+resource "google_compute_address" "cp_ingress_ip" {
   name = "${var.env_name}-cp-ingress-ip"
 }
 
@@ -31,7 +31,7 @@ resource "google_dns_record_set" "cp_ingress" {
 
   managed_zone = google_dns_managed_zone.controlplane.name
 
-  rrdatas = [google_compute_global_address.cp_ingress_ip.address]
+  rrdatas = [google_compute_address.cp_ingress_ip.address]
 }
 
 resource "google_dns_record_set" "cp_jumpbox" {
