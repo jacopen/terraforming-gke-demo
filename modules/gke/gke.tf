@@ -31,7 +31,7 @@ variable "node_count"{
   default = "1"
 }
 variable "machine_type" {
-  default = "n1-standard-2"
+  default = "n1-standard-1"
 }
 variable "min_master_version" {
   default = "1.15.9-gke.24"
